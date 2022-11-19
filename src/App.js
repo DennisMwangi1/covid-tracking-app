@@ -1,31 +1,59 @@
 import "./App.css";
-import axios from 'axios';
 import Aside from "./components/Aside";
+import Statistics from "./components/Statistics";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Overview from "./components/Overview";
+import GlobalTrends from "./components/GlobalTrends";
+import Symptoms from "./components/Symptoms";
+
 
 function App() {
-  // const axios = require("axios");
-
-const options = {
-  method: 'GET',
-  url: 'https://covid-193.p.rapidapi.com/statistics',
-  params: {country: 'kenya'},
-  headers: {
-    'X-RapidAPI-Key': 'a458c332e4msh71108d98a0d6ff0p1d3b72jsn23c111109d80',
-    'X-RapidAPI-Host': 'covid-193.p.rapidapi.com'
-  }
-};
-
-axios.request(options).then(function (response) {
-	console.log(response.data);
-}).catch(function (error) {
-	console.error(error);
-});
+ 
   return (
-    <div className="  grid grid-cols-5">
+    <div className="  grid grid-cols-6 ">
+      <BrowserRouter>
       <Aside/>
-      <div className=" col-span-4 bg-red-500 h-[100vh]">
+      <Routes>
 
-      </div>
+      <Route 
+        path="/"
+        exact
+        element={
+          <div className="bg-red-500 col-span-5">
+            <Overview/>
+          </div>
+        }
+      />
+        <Route 
+        path="/statistics"
+        exact
+        element={
+          <div className=" col-span-5">
+            <Statistics/>
+          </div>
+        }
+      />
+        <Route 
+        path="/globaltrends"
+        exact
+        element={
+          <div className="bg-blue-500 col-span-5">
+            <GlobalTrends/>
+          </div>
+        }
+      />
+        <Route 
+        path="/symptoms"
+        exact
+        element={
+          <div className="bg-green-500 col-span-5">
+            <Symptoms/>
+          </div>
+        }
+      />
+
+      </Routes>
+      </BrowserRouter>
     </div>
   );
 }
